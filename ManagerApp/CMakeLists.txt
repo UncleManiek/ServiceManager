@@ -18,3 +18,5 @@ add_executable(${APP_NAME}
 
 target_link_libraries(${APP_NAME} PRIVATE nlohmann_json::nlohmann_json
                                           spdlog::spdlog)
+
+install(FILES app_config.json DESTINATION /etc RENAME ServiceManagerConfig.json PERMISSIONS OWNER_WRITE OWNER_READ)

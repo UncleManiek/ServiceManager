@@ -1,0 +1,10 @@
+{
+    "Applications": [{
+            "Name": "App1",
+            "args": ["testarg1", "testarg2"]
+        },{
+            "Name": "App2",
+            "args": ["arg1", "arg2"]
+        }
+    ]
+}
