@@ -1,8 +1,12 @@
 #include <fstream>
 #include <string>
+#include <memory>
 
 #include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
+
+#include <AppConfigHandler.hpp>
+#include <IConfigHandler.hpp>
 
 //temporary set path
 const std::string config_path = "/etc/ServiceManagerConfig.json";
@@ -13,24 +17,9 @@ int main()
 {
     spdlog::info("Service Manager App started");
 
-    /*Reading app configuration*/
-    std::ifstream config_file(config_path);
-
-    if(!config_file.is_open()){
-        spdlog::error("Cannot open configuration file:" + config_path +". Make sure file exists...");
-        return 1;
-    }
-
-    nlohmann::json config_data;
-    config_file >> config_data;
-
-    if(config_data.is_null()){
-        spdlog::error("Error during reading configuration file: configuration is empty");
-        return 2;
-    }
-
-    /*Print config data for checking purpose*/
-    spdlog::info("{}", config_data.dump(4));
+    //IConfigHandler *config_handler = new AppConfigHandler(config_path);
+    std::unique_ptr<IConfigHandler> config_handler = std::make_unique<AppConfigHandler>(config_path);
+    config_handler->init();
 
     return 0;
 }

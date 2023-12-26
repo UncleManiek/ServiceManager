@@ -15,6 +15,7 @@ include_directories(
 
 add_executable(${APP_NAME}
     src/main.cpp
+    src/ConfigHandler.cpp
     src/AppConfigHandler.cpp)
 
 target_link_libraries(${APP_NAME} PRIVATE nlohmann_json::nlohmann_json
