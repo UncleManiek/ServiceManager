@@ -1,8 +1,17 @@
 {
-    "config":{
-        "test1": "test123",
-        "test2": 123,
-        "test3": true,
-        "test4": null
-    }
+    "apps": [
+        {
+            "app_name": "app1",
+            "app_path": "/sbin/app1",
+            "param1": "app1param1",
+            "param2": "app1param2"
+        },
+        {
+            "app_name": "app2",
+            "app_path": "/sbin/app2",
+            "param1": "app2param1",
+            "param2": "app2param2",
+            "param3": "app2param3"
+        }
+    ]
 }
