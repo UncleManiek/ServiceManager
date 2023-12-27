@@ -30,5 +30,58 @@ ConfigResult AppConfigHandler::validateConfigData()
         }
     }
 
+    //4. validate if all apps names are unuque
+
     return ConfigResult::SUCCESS;
+}
+
+const std::vector<std::string_view> AppConfigHandler::getAllAppsName() const
+{
+    std::vector<std::string_view> result{};
+
+    for (const auto &app_obj : m_config_data["apps"]) {
+        result.push_back(app_obj["app_name"].get<std::string_view>());
+    }
+
+    return result;
+}
+
+const std::string_view AppConfigHandler::getAppPath(const std::string_view &app_name) const
+{
+    std::string_view result;
+
+    for (const auto &app_obj : m_config_data["apps"]) {
+        if (app_obj["app_name"].get<std::string_view>() == app_name) {
+            result = app_obj["app_path"].get<std::string_view>();
+            break;
+        }
+    }
+
+    return result;
+}
+
+const std::vector<std::string_view> AppConfigHandler::getAppParams(const std::string_view &app_name) const
+{
+    std::vector<std::string_view> result{};
+    std::size_t params_count{0};
+
+    for (const auto &app_obj : m_config_data["apps"]) {
+        if (app_obj["app_name"].get<std::string_view>() == app_name) {
+            // check how many params does app have
+            for (const auto& field : app_obj.items()) {
+                if (field.key().find("param") == 0) {
+                    params_count++;
+                }
+            }
+
+            // iterate over all counted params
+            for (std::size_t i = 1; i <= params_count; i++) {
+                result.push_back(app_obj["param" + std::to_string(i)].get<std::string_view>());
+            }
+
+            break;
+        }
+    }
+
+    return result;
 }
