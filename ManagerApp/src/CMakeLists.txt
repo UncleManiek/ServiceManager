@@ -12,7 +12,8 @@ FetchContent_MakeAvailable(spdlog)
 add_executable(${APP_NAME}
     main.cpp
     ConfigHandler.cpp
-    AppConfigHandler.cpp)
+    AppConfigHandler.cpp
+    ServiceHandler.cpp)
 
 target_include_directories(${APP_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/../include
